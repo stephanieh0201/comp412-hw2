@@ -52,3 +52,13 @@ with open('C:\Users\Stephanie\Documents\GitHub\comp412-hw2\Life_Expectancy.csv',
     # print life expectancy data to screen
     print len(LifeDict)
     print LifeDict.viewitems()
+
+    combined = {}
+
+    for key in LifeDict:
+        x=0
+        pov = PovertyDict[x]
+        life = LifeDict[x]
+        combined[pov]=life
+        x=x+1
+    print combined.viewitems()
