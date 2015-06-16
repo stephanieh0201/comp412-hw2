@@ -50,10 +50,3 @@ def LifeExpecParser():
     	    LifeDict[lifedata1] = lifedata9
         del LifeDict['']    
         return LifeDict
-
-    combined = {}
-    
-    print LifeDict["77"] + PovertyDict["77"]
- 
-    #for key, value in LifeDict.items:
-     #   print value + "&" + key + ": Life-" + LifeDict[key]  + " ----  Pov-" + PovertyDict[key]  
