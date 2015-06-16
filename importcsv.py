@@ -1,4 +1,4 @@
-import csv
+import csv, math
 
 def Parser(filename, column1, column2):
     with open(filename, 'rb') as csvfile:
@@ -29,15 +29,23 @@ def Parser(filename, column1, column2):
 
 def CombineData(Dict1, Dict2):
     combine = {}
-    olddata=[Dict1, Dict2]
     for k in Dict1:
         combine[Dict1[k]]=Dict2[k]
     return combine
+
+def AverageKeys(Dict):
+    sum = 0
+    for key in Dict:
+        sum = sum + key
+    average = sum/len(Dict)
+    return average
+
+#def Correlation(Dict):
     
 
 
 PovDict =  Parser ('Health_Indicators.csv', 0, 23)
 LifeDict = Parser ('Life_Expectancy.csv', 0, 8)
-ListComb = CombineData(PovDict, LifeDict)
-
+DictComb = CombineData(PovDict, LifeDict)
+AverageKeys(DictComb)
 
