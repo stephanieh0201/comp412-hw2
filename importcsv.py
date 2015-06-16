@@ -22,16 +22,22 @@ def Parser(filename, column1, column2):
             data1 = column[column1]
             data24 = column[column2]
             Dict[data1] = data24
-
-    # print poverty data to screen    
+        if '' in Dict.keys():
+            del Dict['']
+                # print poverty data to screen    
         return Dict
 
-def CompareData(PovertyDict):
-    for key in PovertyDict:
-        print key
+def CombineData(Dict1, Dict2):
+    combine = {}
+    olddata=[Dict1, Dict2]
+    for k in Dict1:
+        combine[Dict1[k]]=Dict2[k]
+    return combine
+    
 
 
 PovDict =  Parser ('Health_Indicators.csv', 0, 23)
 LifeDict = Parser ('Life_Expectancy.csv', 0, 8)
-del LifeDict['']
-CompareData(LifeDict)
+ListComb = CombineData(PovDict, LifeDict)
+
+
