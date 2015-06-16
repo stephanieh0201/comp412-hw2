@@ -1,14 +1,14 @@
 import csv
 
-def PovertyParser():
-    with open('Health_Indicators.csv', 'rb') as csvfile:
+def Parser(filename, column1, column2):
+    with open(filename, 'rb') as csvfile:
         datafile = csv.reader(csvfile, delimiter=' ', quotechar='|')
   
     # get headers of columns
         for row in csvfile.readlines():
             column = row.split(',')
-            header1 = column[0]
-    	    header24 = column[23]
+            header1 = column[column1]
+            header24 = column[column2]
             print "Data is for " + header1 + " and " + header24
             break
         csvfile.seek(0)
@@ -16,37 +16,22 @@ def PovertyParser():
    
 
     # store data in dictionary
-        PovertyDict = {}
+        Dict = {}
         for row in csvfile:
-    	    column = row.split(',')
-            data1 = column[0]
-    	    data24 = column[23]
-    	    PovertyDict[data1] = data24
+            column = row.split(',')
+            data1 = column[column1]
+            data24 = column[column2]
+            Dict[data1] = data24
 
     # print poverty data to screen    
-        return PovertyDict
+        return Dict
 
-#Importing Life Expectancy data by community area
-def LifeExpecParser():
-    with open('Life_Expectancy.csv', 'rb') as csvfile:
-        datafile = csv.reader(csvfile, delimiter=' ', quotechar='|')
-    
-        # get headers of columns
-        for row in csvfile.readlines():
-            column = row.split(',')
-            lifeheader1 = column[0]
-    	    lifeheader9 = column[8]
-            print "Data is for " + lifeheader1 + " and " + lifeheader9
-            break
-        csvfile.seek(0)
-        csvfile.next()
+def CompareData(PovertyDict):
+    for key in PovertyDict:
+        print key
 
-        # store data in dictionary
-        LifeDict= {}
-        for row in csvfile:
-    	    column = row.split(',')
-            lifedata1 = column[0]
-    	    lifedata9 = column[8]
-    	    LifeDict[lifedata1] = lifedata9
-        del LifeDict['']    
-        return LifeDict
+
+PovDict =  Parser ('Health_Indicators.csv', 0, 23)
+LifeDict = Parser ('Life_Expectancy.csv', 0, 8)
+del LifeDict['']
+CompareData(LifeDict)
