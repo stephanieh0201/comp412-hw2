@@ -14,8 +14,14 @@ class ProgramTest(unittest.TestCase):
         prog=Program()
         d1= prog.Parser('Health_Indicators.csv', 0, 23)
         d2= prog.Parser('Life_Expectancy.csv', 0, 8)
-        data = [d1[1],d2[1]]
-        self.assertItemsEqual(data,[22.7, 77.3])
+        data1 = [d1[1], d2[1]]
+        data2 = [d1[25], d2[25]]
+        data3 = [d1[68], d2[68]]
+        data4 = [d1[77], d2[77]]
+        self.assertItemsEqual(data1, [22.7, 77.3])
+        self.assertItemsEqual(data2, [27, 71.9])
+        self.assertItemsEqual(data3, [42.2, 70.7])
+        self.assertItemsEqual(data4, [16.6, 79.8])
 
     def testAverageRight(self):
         """This is testing the Average() method from Program to ensure it is calulating
