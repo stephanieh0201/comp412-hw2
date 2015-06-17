@@ -56,7 +56,7 @@ Tests Include:
 #Data Analysis:
 
 1. The two csv data files are parsed into two separate dictionaries. Data is identified by a community area number which is consistent across the two files.
-2. Pearson Correlation is run on the two data sets, matching the Life Expectancy with the Perecent of People in Poverty by the Community Area.
+2. Pearson Correlation is run on the two data sets, matching the Life Expectancy with the Percent of People in Poverty by the Community Area.
 3. The correlation coefficient is analyzed to determine what type of relationship the two variables have with each other, and and displayed to the screen.
 
 #Results:
