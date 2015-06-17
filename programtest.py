@@ -8,9 +8,38 @@ class ProgramTest(unittest.TestCase):
      #   prog=Program()
       #  d = Program.Parser(prog, 'notfile.csv', 1,2)
        # self.fail(d)
+
+    def testCorrectColumnsHealth(self):
+        """Testing the Poverty Data Dictionary created by Parser() contains data
+        from the necessary columns in the data csv file."""
+        prog=Program()
+        with open('Health_Indicators.csv', 'rb') as csvfile:
+                datafile = csv.reader(csvfile, delimiter=' ', quotechar='|')
+                for row in csvfile.readlines():
+                    column = row.split(',')
+                    header1 = column[0]
+                    header2 = column[23]
+                    break
+                self.assertEqual(header1, "Community Area")
+                self.assertEqual(header2, "Below Poverty Level")
+
+
+    def testCorrectColumnsLife(self):
+        """Testing that Life Expectancy Dictionary created by Parser() contains data
+        from the necessary columns in the data csv file."""
+        prog=Program()
+        with open('Life_Expectancy.csv', 'rb') as csvfile:
+                datafile = csv.reader(csvfile, delimiter=' ', quotechar='|')
+                for row in csvfile.readlines():
+                    column = row.split(',')
+                    header1 = column[0]
+                    header2 = column[8]
+                    break
+                self.assertEqual(header1, "Community Area Number")
+                self.assertEqual(header2, "2010 Life Expectancy")
+
     def testCorrectData(self):
-        """Testing that Parser() is importing correct data for specific community area 
-        (testing area 1)"""
+        """Testing that Parser() is importing correct data for specific community area."""
         prog=Program()
         d1= prog.Parser('Health_Indicators.csv', 0, 23)
         d2= prog.Parser('Life_Expectancy.csv', 0, 8)
