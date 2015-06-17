@@ -81,12 +81,23 @@ class ProgramTest(unittest.TestCase):
 
     def testPearsonRight(self):
         """Testing to check if Pearson() calculation is working correctly. Two dictionaries 
-        same values should give a coefficient of 1"""
+        same values should give a coefficient of 1."""
         prog=Program()
         test1= {1:1, 2:2, 3:3}
         test2= {1:1, 2:2, 3:3}
         output=Program.Pearson(prog, test1, test2)
         self.assertEqual(output, 1)
+       
+
+    def testPearsonMatchExcel(self):
+        """Testing to see if the program's Pearson() method calculates a similar value
+        as the correlation function in excel"""
+        prog=Program()
+        d1= prog.Parser('Health_Indicators.csv', 0, 23)
+        d2= prog.Parser('Life_Expectancy.csv', 0, 8)
+        Progvalue = prog.Pearson(d1,d2)
+        Excelvalue= -0.662362134530488
+        self.assertAlmostEqual(Progvalue, Excelvalue)
 
     def testCoefficientInRange(self):
         """Testing that Pearson Coefficient is in range"""
@@ -96,7 +107,6 @@ class ProgramTest(unittest.TestCase):
         value = prog.Pearson(d1,d2)
         self.assertGreaterEqual(value, -1)
         self.assertLessEqual(value, 1)
-
 
 
 if __name__ == '__main__':
