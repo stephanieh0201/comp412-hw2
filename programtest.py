@@ -18,6 +18,8 @@ class ProgramTest(unittest.TestCase):
         self.assertEqual(avg, 10)
 
     def testPearsonRight(self):
+        """Testing to check if Pearson calculation is working correctly. Two dictionaries 
+        same values should give a coefficient of 1"""
     	prog=Program()
     	test1= {1:1, 2:2, 3:3}
     	test2= {1:1, 2:2, 3:3}
