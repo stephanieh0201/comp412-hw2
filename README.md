@@ -1,7 +1,7 @@
-# comp412-hw2
+comp412-hw2
 #Project: Analyzing the Effect of Percent of People Living in Poverty on Life Expectancy of Chicago Community Areas.
 Created by: Stephanie Verlingo
-Loyola University, COMP 412 Homework Assignment 2
+Loyola University of Chicago, COMP 412 Homework Assignment 2
 
 This is a python project analyzing Chicago city data to determine if there is a coorelation between number of people living in poverty vs. life expectancy. This will be determined by using a Pearson Correlation Coefficient.
 
@@ -16,7 +16,6 @@ Specific data sets used were:
 #Methods:
 
 Using Python language, methods were developed. Methods include: 
- def GetHeader(self, filename, column1, column2)
  def Parser(self, filename, column1, column2) 
  def Average (self, Dict)
  def Pearson (self, Dict1, Dict2)
@@ -24,7 +23,18 @@ Using Python language, methods were developed. Methods include:
 
 #UnitTests:
 
-Unit test are being developed to ensure program is running efficiently.
+Unit test are being developed to ensure program is running efficiently. 11 Tests run in .008s. Tests Include:
+ def testFileExists()
+ def testCorrectColumnsHealth()
+ def testCorrectColumnsLife()
+ def testCorrectData()
+ def testDictsSameSize()
+ def testDictKeysMatch()
+ def testAverageRight()
+ def testPearsonRight()
+ def testPearsonMatchExcel()
+ def testCoefficientInRange()
+ def testCoefficientOutput()
 
 #Data Analysis:
 
