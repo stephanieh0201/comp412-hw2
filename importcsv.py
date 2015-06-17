@@ -4,6 +4,19 @@ class Program:
     and then utilize two separate dictionaries with matching keys in order to determine
     the Pearson Correlation Coefficient."""
 
+
+    def GetHeader (self, filename, column1, column2):
+        with open(filename, 'rb') as csvfile:
+            datafile = csv.reader(csvfile, delimiter=' ', quotechar='|')
+  
+            # get headers of columns
+            for row in csvfile.readlines():
+                column = row.split(',')
+                header1 = column[column1]
+                header2 = column[column2]
+                break
+            return "Contains Data for " + header1 + " and " + header2
+
     def Parser(self, filename, column1, column2):
         """Returns a dictionary with data (int format) from two specified columns of 
         a csv file assuming first row is a header row. Removes any k/v pairs that have 
@@ -90,9 +103,16 @@ class Program:
 
 if __name__ == '__main__':
     prog = Program()
+
+    print "Chicago city data is being analyzed to determine if there is a correlation between the percent of residents living in poverty in a community area vs life expectancy of that area."
+    print ""
+    print "Importing data from external files and loading into data dictionaries..."
     PovDict =  prog.Parser ('Health_Indicators.csv', 0, 23)
     LifeDict = prog.Parser ('Life_Expectancy.csv', 0, 8)
+    print "Dictionary 1: " + prog.GetHeader('Health_Indicators.csv', 0, 23) + "."
+    print "Dictionary 2: " + prog.GetHeader('Life_Expectancy.csv', 0, 8) + "."
+    print ""
+    print "Calculating the pearson correlation coefficient..."
     value = prog.Pearson(PovDict, LifeDict)
-    print "Chicago city data is being analyzed to determine if there is a correlation between the percent of residents living in poverty in a community area vs life expectancy of that area"
     print "Pearson Correlation Coefficient: " + str(value)
-    print "This indicates there is a: " + prog.CorrelationStrength(value)
+    print "This indicates there is a " + prog.CorrelationStrength(value) + " between percent of residents living in poverty vs. life expectancy."
