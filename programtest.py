@@ -3,14 +3,16 @@ from importcsv import *
 
 class ProgramTest(unittest.TestCase):
 
-    def testFileNotExist(self):
+    def testFileExist(self):
         """Testing the two csv data files used in program exist."""
+        
         assert os.path.exists('Health_Indicators.csv')
         assert os.path.exists('Life_Expectancy.csv')
         
     def testCorrectColumnsHealth(self):
         """Testing the Poverty Data Dictionary created by Parser() from Health_Indicators
         contains data from the necessary columns in the data csv file."""
+        
         prog=Program()
         with open('Health_Indicators.csv', 'rb') as csvfile:
                 datafile = csv.reader(csvfile, delimiter=' ', quotechar='|')
@@ -25,6 +27,7 @@ class ProgramTest(unittest.TestCase):
     def testCorrectColumnsLife(self):
         """Testing that Life Expectancy Dictionary created by Parser() contains data
         from the necessary columns in the data csv file."""
+        
         prog=Program()
         with open('Life_Expectancy.csv', 'rb') as csvfile:
                 datafile = csv.reader(csvfile, delimiter=' ', quotechar='|')
@@ -38,6 +41,7 @@ class ProgramTest(unittest.TestCase):
 
     def testCorrectData(self):
         """Testing that Parser() is importing correct data for specific community area."""
+
         prog=Program()
         d1= prog.Parser('Health_Indicators.csv', 0, 23)
         d2= prog.Parser('Life_Expectancy.csv', 0, 8)
@@ -53,6 +57,7 @@ class ProgramTest(unittest.TestCase):
     def testDictsSameSize(self):
         """Testing to see if the two dictionaries created from Parser() from the two
         chicago data csv files are the same lenghth."""
+
         prog=Program()
         d1= prog.Parser('Health_Indicators.csv', 0, 23)
         d2= prog.Parser('Life_Expectancy.csv', 0, 8)
@@ -63,6 +68,7 @@ class ProgramTest(unittest.TestCase):
     def testDictKeysMatch(self):
         """Testing the two dictionaries created by Parser() from the Chicago datacsv 
         files to determine that keys in one dictionary match the other"""
+
         prog=Program()
         d1= prog.Parser('Health_Indicators.csv', 0, 23)
         d2= prog.Parser('Life_Expectancy.csv', 0, 8)
@@ -71,6 +77,7 @@ class ProgramTest(unittest.TestCase):
     def testAverageRight(self):
         """Testing the Average() method from Program to ensure it is calulating
         the average of the values of a dictionary correctly. Testing mean of 8,10,12 (mean=10) """
+
         prog=Program()
         test1 ={7:8,9:10,11:12}
         avg=Program.Average(prog, test1)
@@ -79,6 +86,7 @@ class ProgramTest(unittest.TestCase):
     def testPearsonRight(self):
         """Testing to check if Pearson() calculation is working correctly. Two dictionaries 
         same values should give a coefficient of 1."""
+
         prog=Program()
         test1= {1:1, 2:2, 3:3}
         test2= {1:1, 2:2, 3:3}
@@ -88,6 +96,7 @@ class ProgramTest(unittest.TestCase):
     def testPearsonMatchExcel(self):
         """Testing to see if the program's Pearson() method calculates a similar value
         as the correlation function in excel"""
+
         prog=Program()
         d1= prog.Parser('Health_Indicators.csv', 0, 23)
         d2= prog.Parser('Life_Expectancy.csv', 0, 8)
@@ -97,6 +106,7 @@ class ProgramTest(unittest.TestCase):
 
     def testCoefficientInRange(self):
         """Testing that Pearson Coefficient is in range"""
+
         prog=Program()
         d1= prog.Parser('Health_Indicators.csv', 0, 23)
         d2= prog.Parser('Life_Expectancy.csv', 0, 8)
@@ -106,6 +116,7 @@ class ProgramTest(unittest.TestCase):
 
     def testCoefficientOutput(self):
         """Testing the output explaining the correlation strength is correct"""
+
         prog=Program()
         d1= prog.Parser('Health_Indicators.csv', 0, 23)
         d2= prog.Parser('Life_Expectancy.csv', 0, 8)
