@@ -66,11 +66,33 @@ class Program:
             LifeDiff2 += LifeDiff * LifeDiff
         return DiffProd/math.sqrt(PovDiff2 * LifeDiff2)
 
+    def CorrelationStrength(self, coefficient):
+        if coefficient >= .70:
+            return "Very strong positive relationship"
+        elif .40 <= coefficient < .70:
+            return "Strong positive relationship"
+        elif .30 <= coefficient < .40:
+            return "Moderate positive relationship"
+        elif .20 <= coefficient < .30:
+            return "Weak positive relationship"
+        elif -.19 <= coefficient < .20:
+            return "No/negligible relationship"
+        elif -.30 <= coefficient < -.20:
+            return "Weak negative relationship"
+        elif -.40 <= coefficient < -.30:
+            return "Moderate negative relationship"
+        elif -.70 <= coefficient < -.40:
+            return "Strong negative relationship"
+        elif coefficient <= -.70:
+            return "Very strong negative relationship"
+        
+
+
 if __name__ == '__main__':
     prog = Program()
     PovDict =  prog.Parser ('Health_Indicators.csv', 0, 23)
     LifeDict = prog.Parser ('Life_Expectancy.csv', 0, 8)
-    print "-------------"
-    print prog.Average(PovDict)
-    print prog.Average(LifeDict)
-    print prog.Pearson(PovDict, LifeDict)
+    value = prog.Pearson(PovDict, LifeDict)
+    print "Chicago city data is being analyzed to determine if there is a correlation between the percent of residents living in poverty in a community area vs life expectancy of that area"
+    print "Pearson Correlation Coefficient: " + str(value)
+    print "This indicates there is a: " + prog.CorrelationStrength(value)
