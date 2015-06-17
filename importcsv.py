@@ -55,39 +55,44 @@ class Program:
                 return Dict
         else: 
             print "File " + filename + " does not exist."
-            return ""
-            
+
     def Average(self, Dict):
         """Returns the mean of a given dictionary using the values"""
 
-        assert len(Dict) > 0 #ensure dictionary contains items
-        sum=0 
-        for k, v in Dict.iteritems():
-            sum += v
-        average= float(sum/len(Dict))
-        return average
+        if len(Dict) > 0: #ensure dictionary contains items
+            sum=0 
+            for k, v in Dict.iteritems():
+                sum += v
+            average= float(sum/len(Dict))
+            return average
+        else:
+            print "Dictionary has no data."
 
     def Pearson(self, Dict1, Dict2):
         """Returns the Pearson Correlation Coefficient given two dictionaries.
         Correlation will be determined by matching keys across the two dictionaries
         and using the corresponding value pairs for the x and y data sets."""
 
-        n=len(Dict1)
-        assert len(Dict1) == len(Dict2)
-        assert n>0
-        AvgPov=self.Average(Dict1)
-        AvgLife= self.Average(Dict2)
-        DiffProd=0
-        PovDiff2=0
-        LifeDiff2=0
+        if len(Dict1)>0:
+            if len(Dict1) == len(Dict2):
+                n=len(Dict1)
+                AvgPov=self.Average(Dict1)
+                AvgLife= self.Average(Dict2)
+                DiffProd=0
+                PovDiff2=0
+                LifeDiff2=0
 
-        for k in Dict1:
-            PovDiff = Dict1[k] - AvgPov
-            LifeDiff = Dict2[k] - AvgLife
-            DiffProd += PovDiff * LifeDiff
-            PovDiff2 += PovDiff * PovDiff
-            LifeDiff2 += LifeDiff * LifeDiff
-        return DiffProd/math.sqrt(PovDiff2 * LifeDiff2)
+                for k in Dict1:
+                    PovDiff = Dict1[k] - AvgPov
+                    LifeDiff = Dict2[k] - AvgLife
+                    DiffProd += PovDiff * LifeDiff
+                    PovDiff2 += PovDiff * PovDiff
+                    LifeDiff2 += LifeDiff * LifeDiff
+                return DiffProd/math.sqrt(PovDiff2 * LifeDiff2)
+            else:
+                print "The two dictionaries are different sizes."
+        else: 
+            print "No data in given file"
 
     def CorrelationStrength(self, coefficient):
         if coefficient >= .70:
@@ -128,3 +133,6 @@ if __name__ == '__main__':
     print "This indicates there is a " + prog.CorrelationStrength(value) + " between percent of residents living in poverty vs. life expectancy."
 
     print prog.GetHeader('steph.csv', 1,2)
+
+    test = {}
+    print prog.Average(test)
