@@ -4,13 +4,14 @@ from importcsv import *
 
 class ProgramTest(unittest.TestCase):
    # def test_no_data(filename)
-    def testAverageWrong(self):
-        prog=Program()
-        test1 ={1:2,3:4,5:6}
-        avg=Program.Average(prog, test1)
-        self.assertNotEqual(avg, 9)
-
+    #def testFileNotExist(self):
+     #   prog=Program()
+      #  d = Program.Parser(prog, 'notfile.csv', 1,2)
+       # self.fail(d)
+        
     def testAverageRight(self):
+        """This is testing the Average() method from Program to ensure it is calulating
+        the average of the values of a dictionary correctly. Testing mean of 8,10,12 (mean=10) """
     	prog=Program()
         test1 ={7:8,9:10,11:12}
         avg=Program.Average(prog, test1)
@@ -24,6 +25,8 @@ class ProgramTest(unittest.TestCase):
     	self.assertEqual(output, 1)
 
     def testDictsSameSize(self):
+        """Testing to see if the two dictionaries created from Parser from the two
+        chicago data csv files are the same lenghth."""
         prog=Program()
         d1= prog.Parser('Health_Indicators.csv', 0, 23)
         d2= prog.Parser('Life_Expectancy.csv', 0, 8)
@@ -31,15 +34,15 @@ class ProgramTest(unittest.TestCase):
         l2=len(d2)
         self.assertEqual(l1,l2)
 
-    #def testMatchingKeys(self):
-    #	prog=Program()
-    #	d1= prog.Parser('Health_Indicators.csv', 0, 23)
-    #	d2= prog.Parser('Life_Expectancy.csv', 0, 8)
-     #   for k, v in d1.iteritems():
-      #  	assert 
+    def testDictKeysMatch(self):
+        """Testing the two dictionaries created by Parser() from the Chicago datacsv 
+        files to determine that keys in one dictionary match the other"""
+        prog=Program()
+        d1= prog.Parser('Health_Indicators.csv', 0, 23)
+        d2= prog.Parser('Life_Expectancy.csv', 0, 8)
+        for k in d1:
+            assert(k in d2)
 
-
-    #def testPearsonWrong(self):
 
 
 if __name__ == '__main__':
