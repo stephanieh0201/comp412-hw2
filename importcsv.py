@@ -36,7 +36,7 @@ class Program:
                 Dict = {int(k):float(v) for k, v in Dict.items()} #cast items from string to int/float
                 return Dict
         else: 
-            print "File " + filename + " does not exist."
+            print "Parser Error: File " + filename + " does not exist."
 
     def Average(self, Dict):
         """Returns the mean of a given dictionary using the values"""
@@ -48,7 +48,7 @@ class Program:
             average= float(sum/len(Dict))
             return average
         else:
-            print "Dictionary has no data."
+            print "Average Error: Dictionary has no data."
 
     def Pearson(self, Dict1, Dict2):
         """Returns the Pearson Correlation Coefficient given two dictionaries.
@@ -72,12 +72,12 @@ class Program:
                     LifeDiff2 += LifeDiff * LifeDiff
                 return DiffProd/math.sqrt(PovDiff2 * LifeDiff2)
             else:
-                print "The two dictionaries are different sizes."
+                print "Pearson Calculation Error: The two dictionaries are different sizes."
         else: 
-            print "No data in given file"
+            print "Pearson Calculation Error: No data in given file"
 
     def CorrelationStrength(self, coefficient):
-        if coefficient >= .70:
+        if  .70 <= coefficient <= 1.0:
             return "Very strong positive relationship"
         elif .40 <= coefficient < .70:
             return "Strong positive relationship"
@@ -93,8 +93,10 @@ class Program:
             return "Moderate negative relationship"
         elif -.70 <= coefficient < -.40:
             return "Strong negative relationship"
-        elif coefficient <= -.70:
+        elif -1.0 <= coefficient <= -.70:
             return "Very strong negative relationship"
+        else:
+            print "Correlation Strength Error: Coefficient out of range."
         
 
 
