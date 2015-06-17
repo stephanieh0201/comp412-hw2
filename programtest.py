@@ -1,15 +1,13 @@
 import unittest, os.path
 from importcsv import *
 
-
 class ProgramTest(unittest.TestCase):
-    #def test_no_data(filename):
+
     def testFileNotExist(self):
         """Testing the two csv data files used in program exist."""
         assert os.path.exists('Health_Indicators.csv')
         assert os.path.exists('Life_Expectancy.csv')
         
-
     def testCorrectColumnsHealth(self):
         """Testing the Poverty Data Dictionary created by Parser() from Health_Indicators
         contains data from the necessary columns in the data csv file."""
@@ -23,7 +21,6 @@ class ProgramTest(unittest.TestCase):
                     break
                 self.assertEqual(header1, "Community Area")
                 self.assertEqual(header2, "Below Poverty Level")
-
 
     def testCorrectColumnsLife(self):
         """Testing that Life Expectancy Dictionary created by Parser() contains data
@@ -88,7 +85,6 @@ class ProgramTest(unittest.TestCase):
         output=Program.Pearson(prog, test1, test2)
         self.assertEqual(output, 1)
        
-
     def testPearsonMatchExcel(self):
         """Testing to see if the program's Pearson() method calculates a similar value
         as the correlation function in excel"""
@@ -115,7 +111,6 @@ class ProgramTest(unittest.TestCase):
         d2= prog.Parser('Life_Expectancy.csv', 0, 8)
         value = prog.Pearson(d1,d2)
         self.assertEqual(prog.CorrelationStrength(value), "Strong negative relationship")
-
 
 if __name__ == '__main__':
     unittest.main()

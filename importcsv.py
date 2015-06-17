@@ -2,41 +2,32 @@ import csv, math, os.path
 class Program:
     """This class was developed to import data from a csv file into a dictionary
     and then utilize two separate dictionaries with matching keys in order to determine
-    the Pearson Correlation Coefficient."""
-
+    the Pearson Correlation Coefficient. 
+    Created by Stephanie Verlingo
+    Loyola University, Chicago, COMP 412 Homework"""
 
     def Parser(self, filename, column1, column2):
         """Returns a dictionary with data (int format) from two specified columns of 
         a csv file assuming first row is a header row. Removes any k/v pairs that have 
         empty keys."""
+
         fileExists = os.path.isfile(filename)
         if fileExists:
             with open(filename, 'rb') as csvfile:
-                datafile = csv.reader(csvfile, delimiter=' ', quotechar='|')
-  
-            # get headers of columns
-                for row in csvfile.readlines():
-                    column = row.split(',')
-                    header1 = column[column1]
-                    header2 = column[column2]
-                    break
-                csvfile.seek(0) # return to beginning of csv file 
+                datafile = csv.reader(csvfile, delimiter=' ', quotechar='|') 
                 csvfile.next() # set up position in file to read data (skip header row)
-   
-
-            # storing data in dictionary
-                Dict = {}
+                Dict = {} # storing data in dictionary
                 for row in csvfile:
                     column = row.split(',')
                     data1 = column[column1]
                     data2 = column[column2]
                     Dict[(data1)] = (data2)
-                if '' in Dict.keys(): #removing empty keys
+                if '' in Dict.keys(): # removing any empty keys
                     del Dict['']
-                Dict = {int(k):float(v) for k, v in Dict.items()} #cast items from string to int/float
+                Dict = {int(k):float(v) for k, v in Dict.items()} # cast items from string to int/float
                 return Dict
         else: 
-            print "Parser Error: File " + filename + " does not exist."
+            print "Parser Error: File " + filename + " does not exist." #error message
 
     def Average(self, Dict):
         """Returns the mean of a given dictionary using the values"""
@@ -48,16 +39,16 @@ class Program:
             average= float(sum/len(Dict))
             return average
         else:
-            print "Average Error: Dictionary has no data."
+            print "Average Error: Dictionary has no data." #error message
 
     def Pearson(self, Dict1, Dict2):
         """Returns the Pearson Correlation Coefficient given two dictionaries.
         Correlation will be determined by matching keys across the two dictionaries
         and using the corresponding value pairs for the x and y data sets."""
 
-        if len(Dict1)>0:
-            if len(Dict1) == len(Dict2):
-                n=len(Dict1)
+        if len(Dict1)>0: #ensure dict1 contains items
+            if len(Dict1) == len(Dict2): #ensure dict1 and dict2 are equal in size
+                n=len(Dict1) #store number of items
                 AvgPov=self.Average(Dict1)
                 AvgLife= self.Average(Dict2)
                 DiffProd=0
@@ -71,12 +62,14 @@ class Program:
                     PovDiff2 += PovDiff * PovDiff
                     LifeDiff2 += LifeDiff * LifeDiff
                 return DiffProd/math.sqrt(PovDiff2 * LifeDiff2)
-            else:
+            else: #error messages
                 print "Pearson Calculation Error: The two dictionaries are different sizes."
         else: 
             print "Pearson Calculation Error: No data in given file"
 
     def CorrelationStrength(self, coefficient):
+        """Returns a statement explaining the strength and direction of the 
+        relationship between two variables using the Pearson Correlation Coefficient"""
         if  .70 <= coefficient <= 1.0:
             return "Very strong positive relationship"
         elif .40 <= coefficient < .70:
@@ -96,9 +89,7 @@ class Program:
         elif -1.0 <= coefficient <= -.70:
             return "Very strong negative relationship"
         else:
-            print "Correlation Strength Error: Coefficient out of range."
-        
-
+            print "Correlation Strength Error: Coefficient out of range." #error message
 
 if __name__ == '__main__':
     prog = Program()
