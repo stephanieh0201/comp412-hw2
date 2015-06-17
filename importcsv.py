@@ -1,4 +1,4 @@
-import csv, math
+import csv, math, os.path
 class Program:
     """This class was developed to import data from a csv file into a dictionary
     and then utilize two separate dictionaries with matching keys in order to determine
@@ -6,47 +6,57 @@ class Program:
 
 
     def GetHeader (self, filename, column1, column2):
-        with open(filename, 'rb') as csvfile:
-            datafile = csv.reader(csvfile, delimiter=' ', quotechar='|')
-  
+        fileExists = os.path.isfile(filename)
+        if fileExists:
+            with open(filename, 'rb') as csvfile:
+                datafile = csv.reader(csvfile, delimiter=' ', quotechar='|')
+                
             # get headers of columns
-            for row in csvfile.readlines():
-                column = row.split(',')
-                header1 = column[column1]
-                header2 = column[column2]
-                break
-            return "Contains Data for " + header1 + " and " + header2
+                for row in csvfile.readlines():
+                    column = row.split(',')
+                    header1 = column[column1]
+                    header2 = column[column2]
+                    break
+                return "Contains Data for " + header1 + " and " + header2
+        else: 
+            print "File " + filename + " does not exist."
+            return ""
+
 
     def Parser(self, filename, column1, column2):
         """Returns a dictionary with data (int format) from two specified columns of 
         a csv file assuming first row is a header row. Removes any k/v pairs that have 
         empty keys."""
-
-        with open(filename, 'rb') as csvfile:
-            datafile = csv.reader(csvfile, delimiter=' ', quotechar='|')
+        fileExists = os.path.isfile(filename)
+        if fileExists:
+            with open(filename, 'rb') as csvfile:
+                datafile = csv.reader(csvfile, delimiter=' ', quotechar='|')
   
             # get headers of columns
-            for row in csvfile.readlines():
-                column = row.split(',')
-                header1 = column[column1]
-                header2 = column[column2]
-                break
-            csvfile.seek(0) # return to beginning of csv file 
-            csvfile.next() # set up position in file to read data (skip header row)
+                for row in csvfile.readlines():
+                    column = row.split(',')
+                    header1 = column[column1]
+                    header2 = column[column2]
+                    break
+                csvfile.seek(0) # return to beginning of csv file 
+                csvfile.next() # set up position in file to read data (skip header row)
    
 
             # storing data in dictionary
-            Dict = {}
-            for row in csvfile:
-                column = row.split(',')
-                data1 = column[column1]
-                data2 = column[column2]
-                Dict[(data1)] = (data2)
-            if '' in Dict.keys(): #removing empty keys
-                del Dict['']
-            Dict = {int(k):float(v) for k, v in Dict.items()} #cast items from string to int/float
-            return Dict
-
+                Dict = {}
+                for row in csvfile:
+                    column = row.split(',')
+                    data1 = column[column1]
+                    data2 = column[column2]
+                    Dict[(data1)] = (data2)
+                if '' in Dict.keys(): #removing empty keys
+                    del Dict['']
+                Dict = {int(k):float(v) for k, v in Dict.items()} #cast items from string to int/float
+                return Dict
+        else: 
+            print "File " + filename + " does not exist."
+            return ""
+            
     def Average(self, Dict):
         """Returns the mean of a given dictionary using the values"""
 
@@ -116,3 +126,5 @@ if __name__ == '__main__':
     value = prog.Pearson(PovDict, LifeDict)
     print "Pearson Correlation Coefficient: " + str(value)
     print "This indicates there is a " + prog.CorrelationStrength(value) + " between percent of residents living in poverty vs. life expectancy."
+
+    print prog.GetHeader('steph.csv', 1,2)
