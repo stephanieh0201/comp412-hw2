@@ -8,7 +8,15 @@ class ProgramTest(unittest.TestCase):
      #   prog=Program()
       #  d = Program.Parser(prog, 'notfile.csv', 1,2)
        # self.fail(d)
-        
+    def testCorrectData(self):
+        """Testing that Parser() is importing correct data for specific community area 
+        (testing area 1)"""
+        prog=Program()
+        d1= prog.Parser('Health_Indicators.csv', 0, 23)
+        d2= prog.Parser('Life_Expectancy.csv', 0, 8)
+        data = [d1[1],d2[1]]
+        self.assertItemsEqual(data,[22.7, 77.3])
+
     def testAverageRight(self):
         """This is testing the Average() method from Program to ensure it is calulating
         the average of the values of a dictionary correctly. Testing mean of 8,10,12 (mean=10) """
@@ -18,7 +26,7 @@ class ProgramTest(unittest.TestCase):
         self.assertEqual(avg, 10)
 
     def testPearsonRight(self):
-        """Testing to check if Pearson calculation is working correctly. Two dictionaries 
+        """Testing to check if Pearson() calculation is working correctly. Two dictionaries 
         same values should give a coefficient of 1"""
     	prog=Program()
     	test1= {1:1, 2:2, 3:3}
@@ -27,7 +35,7 @@ class ProgramTest(unittest.TestCase):
     	self.assertEqual(output, 1)
 
     def testDictsSameSize(self):
-        """Testing to see if the two dictionaries created from Parser from the two
+        """Testing to see if the two dictionaries created from Parser() from the two
         chicago data csv files are the same lenghth."""
         prog=Program()
         d1= prog.Parser('Health_Indicators.csv', 0, 23)
@@ -42,8 +50,9 @@ class ProgramTest(unittest.TestCase):
         prog=Program()
         d1= prog.Parser('Health_Indicators.csv', 0, 23)
         d2= prog.Parser('Life_Expectancy.csv', 0, 8)
-        for k in d1:
-            assert(k in d2)
+        self.assertItemsEqual(d1.keys(),d2.keys())
+        #for k in d1:
+         #   assert(k in d2)
 
 
 
