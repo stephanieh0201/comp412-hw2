@@ -35,15 +35,15 @@ def CombineData(Dict1, Dict2):
         combine[Dict1[k]]=Dict2[k]
     return combine
 
-def AveragePov(Dict):
-    assert len(Dict) > 0
-    sum = 0
-    for key in Dict:
-        sum = sum + key
-    average = float(sum/len(Dict))
-    return average
+#def AveragePov(Dict):
+ #   assert len(Dict) > 0
+  #  sum = 0
+   # for key in Dict:
+    #    sum = sum + key
+    #average = float(sum/len(Dict))
+    #return average
 
-def AverageLife(Dict):
+def Average(Dict):
     assert len(Dict) > 0
     sum=0
     for k, v in Dict.iteritems():
@@ -51,32 +51,32 @@ def AverageLife(Dict):
     average= float(sum/len(Dict))
     return average
 
-def Pearson(Dict):
-    n=len(Dict)
+def Pearson(Dict1, Dict2):
+    n=len(Dict1)
+    assert len(Dict1) == len(Dict2)
     assert n>0
     print n
-    AvgPov=AveragePov(Dict)
-    AvgLife=AverageLife(Dict)
+    AvgPov=Average(Dict1)
+    AvgLife=Average(Dict2)
     DiffProd=0
     PovDiff2=0
     LifeDiff2=0
-    for k,v in Dict.iteritems():
-        PovDiff = k - AvgPov
-        LifeDiff= v - AvgLife
-        DiffProd += PovDiff + LifeDiff
+
+    for k in Dict1:
+        PovDiff = Dict1[k] - AvgPov
+        LifeDiff= Dict2[k] - AvgLife
+        DiffProd += PovDiff * LifeDiff
         PovDiff2 += PovDiff * PovDiff
         LifeDiff2 += LifeDiff * LifeDiff
     return DiffProd/math.sqrt(PovDiff2 * LifeDiff2)
 
-#def Correlation(Dict):
-    
-
 
 PovDict =  Parser ('Health_Indicators.csv', 0, 23)
 LifeDict = Parser ('Life_Expectancy.csv', 0, 8)
-DictComb = CombineData(PovDict, LifeDict)
-print DictComb
+#DictComb = CombineData(PovDict, LifeDict)
+#print DictComb
 print "-------------"
-print AveragePov(DictComb)
-print AverageLife(DictComb)
-print Pearson(DictComb)
+print Average(PovDict)
+print Average(LifeDict)
+print Pearson(PovDict, LifeDict)
+
