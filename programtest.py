@@ -65,6 +65,38 @@ class ProgramTest(unittest.TestCase):
         l2=len(d2)
         self.assertEqual(l1,l2)
 
+    def testNumberMatchesAreas(self):
+        """Testing to ensure the community area number corresponds to the same community area
+        across both Health_Indicators.csv and Life_Expectancy.csv files. Numbers are found in 
+        column 0 and areas are found in column 1."""
+        
+        prog=Program()
+        with open('Health_Indicators.csv', 'rb') as csvfile:
+            datafile = csv.reader(csvfile, delimiter=' ', quotechar='|') 
+            csvfile.next() 
+            Dict = {} 
+            for row in csvfile:
+                column = row.split(',')
+                data1 = column[0]
+                data2 = column[1]
+                Dict[(data1)] = (data2)
+            if '' in Dict.keys(): 
+                del Dict['']
+            d1=Dict
+        with open('Life_Expectancy.csv', 'rb') as csvfile:
+            datafile = csv.reader(csvfile, delimiter=' ', quotechar='|') 
+            csvfile.next() 
+            Dict = {} 
+            for row in csvfile:
+                column = row.split(',')
+                data1 = column[0]
+                data2 = column[1]
+                Dict[(data1)] = (data2)
+            if '' in Dict.keys(): 
+                del Dict['']
+            d2=Dict
+        self.assertDictContainsSubset(d1, d2)
+
     def testDictKeysMatch(self):
         """Testing the two dictionaries created by Parser() from the Chicago datacsv 
         files to determine that keys in one dictionary match the other"""
