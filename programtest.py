@@ -108,6 +108,14 @@ class ProgramTest(unittest.TestCase):
         self.assertGreaterEqual(value, -1)
         self.assertLessEqual(value, 1)
 
+    def testCoefficientOutput(self):
+        """Testing the output explaining the correlation strength is correct"""
+        prog=Program()
+        d1= prog.Parser('Health_Indicators.csv', 0, 23)
+        d2= prog.Parser('Life_Expectancy.csv', 0, 8)
+        value = prog.Pearson(d1,d2)
+        self.assertEqual(prog.CorrelationStrength(value), "Strong negative relationship")
+
 
 if __name__ == '__main__':
     unittest.main()
