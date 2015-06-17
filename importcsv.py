@@ -17,7 +17,6 @@ class Program:
                 column = row.split(',')
                 header1 = column[column1]
                 header2 = column[column2]
-                print "Data is for " + header1 + " and " + header2
                 break
             csvfile.seek(0) # return to beginning of csv file 
             csvfile.next() # set up position in file to read data (skip header row)
@@ -53,7 +52,6 @@ class Program:
         n=len(Dict1)
         assert len(Dict1) == len(Dict2)
         assert n>0
-        print n
         AvgPov=self.Average(Dict1)
         AvgLife= self.Average(Dict2)
         DiffProd=0
@@ -62,7 +60,7 @@ class Program:
 
         for k in Dict1:
             PovDiff = Dict1[k] - AvgPov
-            LifeDiff= Dict2[k] - AvgLife
+            LifeDiff = Dict2[k] - AvgLife
             DiffProd += PovDiff * LifeDiff
             PovDiff2 += PovDiff * PovDiff
             LifeDiff2 += LifeDiff * LifeDiff
