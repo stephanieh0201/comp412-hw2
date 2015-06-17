@@ -29,28 +29,29 @@ To Note: These data sets have community areas consistently numbered 1 through 77
 Using Python language, methods were developed. 
 Methods are found in program.py
 Methods include: 
- def Parser(self, filename, column1, column2) 
- def Average (self, Dict)
- def Pearson (self, Dict1, Dict2)
- def CorrelationStrength(self, coefficient)
+- def Parser(self, filename, column1, column2) 
+- def Average (self, Dict)
+- def Pearson (self, Dict1, Dict2)
+- def CorrelationStrength(self, coefficient)
 
 #UnitTests:
 
 Unit tests were developed to ensure program is running efficiently. 
 Unit tests are found in programtest.py
-11 Tests run in .008s. 
+12 Tests run in .009s. 
 Tests Include:
- def testFileExists()
- def testCorrectColumnsHealth()
- def testCorrectColumnsLife()
- def testCorrectData()
- def testDictsSameSize()
- def testDictKeysMatch()
- def testAverageRight()
- def testPearsonRight()
- def testPearsonMatchExcel()
- def testCoefficientInRange()
- def testCoefficientOutput()
+- def testFileExists()
+- def testCorrectColumnsHealth()
+- def testCorrectColumnsLife()
+- def testCorrectData()
+- def testDictsSameSize()
+- def testNumberMatchesArea()
+- def testDictKeysMatch()
+- def testAverageRight()
+- def testPearsonRight()
+- def testPearsonMatchExcel()
+- def testCoefficientInRange()
+- def testCoefficientOutput()
 
 #Data Analysis:
 
@@ -60,8 +61,8 @@ Tests Include:
 
 #Results:
 
-Results are displayed in the output of executed program.py. 
-Pearson Correlation Coefficient was determined to be approximately -.66.
-This indicates a strong negative correlation between the two variables.
-As the percentage of people living in poverty in a community area goes up, the life expectancy goes down. 
-To note: Correlation does not imply causation.
+- Results are displayed in the output of executed program.py. 
+- Pearson Correlation Coefficient was determined to be approximately -.66.
+- This indicates a strong negative correlation between the two variables.
+- As the percentage of people living in poverty in a community area goes up, the life expectancy goes down. 
+- To note: Correlation does not imply causation.
