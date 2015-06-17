@@ -26,7 +26,7 @@ def Parser(filename, column1, column2):
             del Dict['']
                 # print poverty data to screen 
         Dict = {int(k):float(v) for k, v in Dict.items()}
-
+        print len(Dict)
         return Dict
 
 def CombineData(Dict1, Dict2):
@@ -36,18 +36,37 @@ def CombineData(Dict1, Dict2):
     return combine
 
 def AveragePov(Dict):
+    assert len(Dict) > 0
     sum = 0
     for key in Dict:
         sum = sum + key
-    average = sum/len(Dict)
+    average = float(sum/len(Dict))
     return average
 
 def AverageLife(Dict):
+    assert len(Dict) > 0
     sum=0
     for k, v in Dict.iteritems():
         sum= sum + v
-    average= sum/len(Dict)
+    average= float(sum/len(Dict))
     return average
+
+def Pearson(Dict):
+    n=len(Dict)
+    assert n>0
+    print n
+    AvgPov=AveragePov(Dict)
+    AvgLife=AverageLife(Dict)
+    DiffProd=0
+    PovDiff2=0
+    LifeDiff2=0
+    for k,v in Dict.iteritems():
+        PovDiff = k - AvgPov
+        LifeDiff= v - AvgLife
+        DiffProd += PovDiff + LifeDiff
+        PovDiff2 += PovDiff * PovDiff
+        LifeDiff2 += LifeDiff * LifeDiff
+    return DiffProd/math.sqrt(PovDiff2 * LifeDiff2)
 
 #def Correlation(Dict):
     
@@ -56,5 +75,8 @@ def AverageLife(Dict):
 PovDict =  Parser ('Health_Indicators.csv', 0, 23)
 LifeDict = Parser ('Life_Expectancy.csv', 0, 8)
 DictComb = CombineData(PovDict, LifeDict)
+print DictComb
+print "-------------"
 print AveragePov(DictComb)
 print AverageLife(DictComb)
+print Pearson(DictComb)
